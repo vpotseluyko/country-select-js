@@ -413,6 +413,7 @@
 				if (!alreadySelected) {
 					this._selectFlag(countryCodes[0]);
 					this.countryCodeInput.val(countryCodes[0]).trigger("change");
+
 				}
 				// Matching country found
 				return true;
@@ -441,7 +442,10 @@
 			if (! countryCode) {
 				return false;
 			}
-			this.selectedFlagInner.attr("class", "flag " + countryCode);
+            var id = this.countryInput.attr('id');
+            document.querySelector('#' + id).dispatchEvent(new CustomEvent('country', {detail: countryCode}));
+
+            this.selectedFlagInner.attr("class", "flag " + countryCode);
 			// update the title attribute
 			var countryData = this._getCountryData(countryCode);
 			this.selectedFlagInner.parent().attr("title", countryData.name);
